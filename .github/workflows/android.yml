@@ -1,0 +1,38 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Install Android workload
+        run: dotnet workload install android
+
+      - name: Restore
+        run: dotnet restore OpenUtauMobile/OpenUtauMobile.csproj
+
+      - name: Build APK
+        run: |
+          dotnet publish OpenUtauMobile/OpenUtauMobile.csproj \
+            -c Release \
+            -f net9.0-android \
+            -p:AndroidSdkDirectory=$ANDROID_SDK_ROOT \
+            -o ./artifacts
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenLoid-Flame
+          path: artifacts/*.apk

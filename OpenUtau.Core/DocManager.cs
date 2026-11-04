@@ -33,7 +33,7 @@ namespace OpenUtau.Core {
 
         public TaskScheduler MainScheduler => mainScheduler;
         public Action<Action> PostOnUIThread { get; set; }
-        public Plugin[] Plugins { get; private set; }
+        public OpenUtau.Classic.Plugin[] Plugins { get; private set; }
         public PhonemizerFactory[] PhonemizerFactories { get; private set; }
         public UProject Project { get; private set; }
         public bool HasOpenUndoGroup => undoGroup != null;
@@ -60,7 +60,7 @@ namespace OpenUtau.Core {
                 Log.Information($"Search all legacy plugins: {stopWatch.Elapsed}");
             } catch (Exception e) {
                 Log.Error(e, "Failed to search legacy plugins.");
-                Plugins = new Plugin[0];
+                Plugins = new OpenUtau.Classic.Plugin[0];
             }
         }
 

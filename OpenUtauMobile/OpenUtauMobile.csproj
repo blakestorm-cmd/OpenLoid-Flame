@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
+		<TargetFramework>net9.0</TargetFramework>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
+		<!-- <TargetFramework>net9.0</TargetFramework> -->
 
 		<!-- Note for MacCatalyst:
 		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
@@ -45,7 +45,7 @@
 	<!-- 导入签名配置（如果文件存在） -->
 	<Import Project="signing.props" Condition="Exists('signing.props')" />
 	
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'">
 	  <JavaMaximumHeapSize>4G</JavaMaximumHeapSize>
 	  <EnableLLVM>False</EnableLLVM>
 	  <AndroidKeyStore>True</AndroidKeyStore>
@@ -61,7 +61,7 @@
 		<MtouchLink>None</MtouchLink>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0|AnyCPU'">
 	  <JavaMaximumHeapSize>4G</JavaMaximumHeapSize>
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <EnableLLVM>False</EnableLLVM>
@@ -74,7 +74,7 @@
 	</PropertyGroup>
 
 	<!-- 原生库 -->
-	<!--<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+	<!--<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
 		<NativeLibrary Include="Platforms/Android/Lib/arm64-v8a/libworldline.so">
 			<Abi>arm64-v8a</Abi>
 		</NativeLibrary>
@@ -92,8 +92,8 @@
 	<!-- 资源 -->
 	<ItemGroup>
 		<!-- 应用图标 -->
-		<MauiIcon Condition="'$(TargetFramework)' != 'net9.0-android'" Include="Resources\AppIcon\appicon.png" BaseSize="1024,1024" />
-		<MauiIcon Condition="'$(TargetFramework)' == 'net9.0-android'" Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.4" BaseSize="256,256" />
+		<MauiIcon Condition="'$(TargetFramework)' != 'net9.0'" Include="Resources\AppIcon\appicon.png" BaseSize="1024,1024" />
+		<MauiIcon Condition="'$(TargetFramework)' == 'net9.0'" Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.4" BaseSize="256,256" />
 
 		<!-- 开屏图片 -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" BaseSize="256,256" Color="#ffffff" />
@@ -319,7 +319,7 @@
 
 
 	<!-- Android项目引用 -->
-	<!-- <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+	<!-- <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
       <ProjectReference Include="..\OpenUtau.Core\OpenUtau.Core.csproj" />
     </ItemGroup> -->
 

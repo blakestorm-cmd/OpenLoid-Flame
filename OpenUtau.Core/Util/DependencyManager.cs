@@ -35,7 +35,7 @@ namespace OpenUtau.Core.Util
     /// </summary>
     public class DependencyManager : SingletonBase<DependencyManager>
     {
-        private readonly Lock locker = new();
+        private readonly object locker = new();
         /// <summary>
         /// 获取已安装的依赖项列表
         /// </summary>
