@@ -17,18 +17,17 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      - name: Install Android workload
+      - name: Install workloads
         run: dotnet workload install maui-android
 
       - name: Restore
-        run: dotnet restore OpenUtauMobile/OpenUtauMobile.csproj
+        run: dotnet workload restore OpenUtauMobile/OpenUtauMobile.csproj
 
       - name: Build APK
         run: |
           dotnet publish OpenUtauMobile/OpenUtauMobile.csproj \
             -c Release \
             -f net9.0-android \
-            -p:AndroidSdkDirectory=$ANDROID_SDK_ROOT \
             -o ./artifacts
 
       - name: Upload APK
