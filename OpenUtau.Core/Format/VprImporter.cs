@@ -40,14 +40,13 @@ namespace OpenUtau.Core.Format {
                             position = note.GetProperty("pos").GetInt32(),
                             duration = note.GetProperty("duration").GetInt32(),
                             tone = note.GetProperty("number").GetInt32(),
-                            velocity = note.TryGetProperty("velocity", out var vel) ? vel.GetInt32() : 64,
                             lyric = note.TryGetProperty("lyric", out var ly) ? ly.GetString() : "a"
                         };
                         if (note.TryGetProperty("phoneme", out var ph) && !string.IsNullOrEmpty(ph.GetString()))
-                            un.phonemeOverride = ph.GetString();
+                            un.phonemeOverrides.Add(new UPhonemeOverride { index = 0, phoneme = ph.GetString() });
                         upart.notes.Add(un);
                     }
-                    track.Parts.Add(upart);
+                    upart.trackNo = proj.tracks.Count; proj.parts.Add(upart);
                 }
                 proj.tracks.Add(track);
             }

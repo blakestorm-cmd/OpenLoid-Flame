@@ -35,15 +35,14 @@ namespace OpenUtau.Core.Format {
                             position = (int)note.Element(ns+"t"),
                             duration = (int)note.Element(ns+"dur"),
                             tone = (int)note.Element(ns+"n"),
-                            velocity = (int)note.Element(ns+"v"),
                             lyric = (string)note.Element(ns+"y") ?? "a"
                         };
                         var pElem = note.Element(ns+"p");
                         if (pElem != null && (string)pElem.Attribute("lock") == "1")
-                            un.phonemeOverride = pElem.Value;
+                            un.phonemeOverrides.Add(new UPhonemeOverride { index = 0, phoneme = pElem.Value });
                         upart.notes.Add(un);
                     }
-                    track.Parts.Add(upart);
+                    upart.trackNo = proj.tracks.Count; proj.parts.Add(upart);
                 }
                 proj.tracks.Add(track);
             }
@@ -69,15 +68,14 @@ namespace OpenUtau.Core.Format {
                             position = (int)note.Element(ns+"posTick"),
                             duration = (int)note.Element(ns+"durTick"),
                             tone = (int)note.Element(ns+"noteNum"),
-                            velocity = (int)note.Element(ns+"velocity"),
                             lyric = (string)note.Element(ns+"lyric") ?? "a"
                         };
                         var pElem = note.Element(ns+"phnms");
                         if (pElem != null && (string)pElem.Attribute("lock") == "1")
-                            un.phonemeOverride = pElem.Value;
+                            un.phonemeOverrides.Add(new UPhonemeOverride { index = 0, phoneme = pElem.Value });
                         upart.notes.Add(un);
                     }
-                    track.Parts.Add(upart);
+                    upart.trackNo = proj.tracks.Count; proj.parts.Add(upart);
                 }
                 proj.tracks.Add(track);
             }
