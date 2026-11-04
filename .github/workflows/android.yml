@@ -28,6 +28,8 @@ jobs:
           dotnet publish OpenUtauMobile/OpenUtauMobile.csproj \
             -c Release \
             -f net9.0-android \
+            -r android-arm64 \
+            -p:AndroidPackageFormat=apk \
             -o ./artifacts
 
       - name: Upload APK
