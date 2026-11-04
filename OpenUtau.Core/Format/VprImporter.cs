@@ -13,7 +13,7 @@ namespace OpenUtau.Core.Format {
             using var stream = entry.Open();
             var doc = JsonDocument.Parse(stream);
             var root = doc.RootElement;
-            var proj = new UProject();
+            var proj = new UProject(); proj.tracks.Clear();
             var master = root.GetProperty("masterTrack");
             foreach (var t in master.GetProperty("tempos").EnumerateArray())
                 proj.tempos.Add(new UTempo(

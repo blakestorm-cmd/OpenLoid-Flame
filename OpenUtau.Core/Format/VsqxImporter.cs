@@ -16,7 +16,7 @@ namespace OpenUtau.Core.Format {
             throw new InvalidDataException("not a vsq3 or vsq4 file");
         }
         static UProject ParseVsq4(XElement root, XNamespace ns) {
-            var proj = new UProject();
+            var proj = new UProject(); proj.tracks.Clear();
             var master = root.Element(ns + "masterTrack");
             foreach (var t in master.Elements(ns + "tempo"))
                 proj.tempos.Add(new UTempo((int)t.Element(ns+"t"), (int)t.Element(ns+"v")/100.0));
@@ -49,7 +49,7 @@ namespace OpenUtau.Core.Format {
             return proj;
         }
         static UProject ParseVsq3(XElement root, XNamespace ns) {
-            var proj = new UProject();
+            var proj = new UProject(); proj.tracks.Clear();
             var master = root.Element(ns + "masterTrack");
             foreach (var t in master.Elements(ns + "tempo"))
                 proj.tempos.Add(new UTempo((int)t.Element(ns+"posTick"), (int)t.Element(ns+"bpm")/100.0));
